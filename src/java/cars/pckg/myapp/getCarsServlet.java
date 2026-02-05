@@ -2,21 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package user.pckg.myapp;
+package cars.pckg.myapp;
 
+import database.pckg.myapp.Database;
+import java.sql.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.pckg.myapp.User;
 
 /**
  *
  * @author Personal
  */
-public class userServlet extends HttpServlet {
+public class getCarsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,22 +30,26 @@ public class userServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        User user = new User(request.getParameter("txtName"), 
-                             Integer.parseInt(request.getParameter("txtAge")),
-                             request.getParameter("careers"));
-             
+        Database db = new Database();
+
+        ResultSet rs = db.ExecuteQuery("SELECT * FROM Cars;");
+
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet userServlet</title>");
+            out.println("<title>Servlet getCarsServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>"+ user.Wave() +"</h1>");
+            while (rs.next()) {
+                out.println("<h1>" + rs.getString("Brand") + " " + rs.getString("Model") + "</h1>");
+            }
             out.println("</body>");
             out.println("</html>");
+        } catch (SQLException ex) {
+            System.getLogger(getCarsServlet.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
 
@@ -58,7 +63,8 @@ public class userServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -71,7 +77,8 @@ public class userServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 

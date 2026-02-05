@@ -4,8 +4,16 @@
         <servlet-name>userServlet</servlet-name>
         <servlet-class>user.pckg.myapp.userServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>getCarsServlet</servlet-name>
+        <servlet-class>cars.pckg.myapp.getCarsServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>userServlet</servlet-name>
         <url-pattern>/userServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getCarsServlet</servlet-name>
+        <url-pattern>/getCarsServlet</url-pattern>
     </servlet-mapping>
 </web-app>

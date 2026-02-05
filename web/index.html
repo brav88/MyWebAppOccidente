@@ -10,13 +10,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+                
+        <a href="getCarsServlet">Cars List</a>
+        
         <form action="userServlet">
             <label>Name:</label><br>
             <input type="text" name="txtName" /><br>
             <label>Age:</label><br>
             <input type="number" name="txtAge" /><br>
             <br>
-            <input type="submit" value="Submit"><br>
+            <select name="careers" id="careers">
+                <option value="Ing Informatica">Ing Informatica</option>
+                <option value="Contabilidad">Contabilidad</option>
+                <option value="Enfermeria">Enfermeria</option>
+            </select>
+            <br>
+            <input type="submit" value="Submit"><br>                       
         </form>
     </body>
 </html>
