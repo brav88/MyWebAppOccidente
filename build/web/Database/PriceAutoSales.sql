@@ -1,72 +1,81 @@
 CREATE DATABASE PriceAutoSales;
 USE PriceAutoSales;
 
+/*DROP TABLE Cars;*/
+
 CREATE TABLE Cars (
-     Id INT NOT NULL AUTO_INCREMENT,
-	 Brand VARCHAR(50),
-	 Model VARCHAR(50),
-	 Type INT, 
-	 FuelType INT,
-	 Transmision INT,
-	 Year INT,
-	 Created datetime,
-     PRIMARY KEY(Id)
+    carId int NOT NULL AUTO_INCREMENT,
+    brand varchar(50),
+    model varchar(100),
+    type int,
+    fuelType int,
+    transmission int,
+    cubicCapacity varchar(50),
+    created datetime,
+    PRIMARY KEY (carId)
 );
 
-INSERT INTO Cars (Brand, Model, Type, FuelType, Transmision, Year, Created)
-VALUES ("Honda", "Civic", 1, 1, 1, 2022, LOCALTIME());
-INSERT INTO Cars (Brand, Model, Type, FuelType, Transmision, Year, Created)
-VALUES ("Toyota", "Land Cruiser", 2, 2, 3, 2024, LOCALTIME());
+INSERT INTO Cars (brand, model, type, fuelType, transmission, cubicCapacity, created)
+VALUES ('Toyota', 'Land Cruiser Prado', 7, 2, 2, '4000cc', LOCALTIME());
+INSERT INTO Cars (brand, model, type, fuelType, transmission, cubicCapacity, created)
+VALUES ('Honda', 'Civic', 1, 1, 1, '1700cc', LOCALTIME());
+INSERT INTO Cars (brand, model, type, fuelType, transmission, cubicCapacity, created)
+VALUES ('Suzuki', 'Vitara', 1, 1, 1, '1900cc', LOCALTIME());
 
+UPDATE Cars SET brand = 'Suzuki' WHERE carId = 3;
 SELECT * FROM Cars;
 
-CREATE TABLE Type (
-     Id INT NOT NULL AUTO_INCREMENT,
-	 Description VARCHAR(50),	
-     PRIMARY KEY(Id)
+CREATE TABLE Transmission (
+    id int NOT NULL AUTO_INCREMENT,
+    description varchar(50),
+    PRIMARY KEY (id)
 );
 
-INSERT INTO Type (Description)
-VALUES ("Sedan");
-INSERT INTO Type (Description)
-VALUES ("Station Wagon");
-INSERT INTO Type (Description)
-VALUES ("Hathback");
-INSERT INTO Type (Description)
-VALUES ("Pick Up 4x4");
-INSERT INTO Type (Description)
-VALUES ("SUV");
+INSERT INTO Transmission (description)
+VALUES ('Manual');
+INSERT INTO Transmission (description)
+VALUES ('Shiftronic');
+INSERT INTO Transmission (description)
+VALUES ('Dual Automatic');
 
-SELECT * FROM Type;
+SELECT * FROM Transmission;
 
 CREATE TABLE FuelType (
-     Id INT NOT NULL AUTO_INCREMENT,
-	 Description VARCHAR(50),	
-     PRIMARY KEY(Id)
+    id int NOT NULL AUTO_INCREMENT,
+    description varchar(50),
+    PRIMARY KEY (id)
 );
 
-INSERT INTO FuelType (Description)
-VALUES ("Gasoline");
-INSERT INTO FuelType (Description)
-VALUES ("Diesel");
-INSERT INTO FuelType (Description)
-VALUES ("Hibrid");
-INSERT INTO FuelType (Description)
-VALUES ("Electric");
+INSERT INTO FuelType (description)
+VALUES ('Gasoline');
+INSERT INTO FuelType (description)
+VALUES ('Diesel');
+INSERT INTO FuelType (description)
+VALUES ('Hibrid');
+INSERT INTO FuelType (description)
+VALUES ('Electric');
 
 SELECT * FROM FuelType;
 
-CREATE TABLE Transmission (
-     Id INT NOT NULL AUTO_INCREMENT,
-	 Description VARCHAR(50),	
-     PRIMARY KEY(Id)
+CREATE TABLE CarType (
+    id int NOT NULL AUTO_INCREMENT,
+    description varchar(50),
+    PRIMARY KEY (id)
 );
 
-INSERT INTO Transmission (Description)
-VALUES ("Manual");
-INSERT INTO Transmission (Description)
-VALUES ("Automatic/Dual");
-INSERT INTO Transmission (Description)
-VALUES ("Shiftronic");
+INSERT INTO CarType (description)
+VALUES ('Sedan');
+INSERT INTO CarType (description)
+VALUES ('Pick Up 4x4');
+INSERT INTO CarType (description)
+VALUES ('PickUp 4x2');
+INSERT INTO CarType (description)
+VALUES ('SUV 4x4');
+INSERT INTO CarType (description)
+VALUES ('SUV 4x2');
+INSERT INTO CarType (description)
+VALUES ('Hatchback');
+INSERT INTO CarType (description)
+VALUES ('Station Wagon');
 
-SELECT * FROM Transmission;
+SELECT * FROM CarType;

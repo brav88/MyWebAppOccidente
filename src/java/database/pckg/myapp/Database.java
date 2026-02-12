@@ -17,12 +17,12 @@ public class Database {
         try
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/PriceAutoSales", "root", "Admin$1234");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/PriceAutoSalesOccidente", "root", "Admin$1234");
         } catch (ClassNotFoundException | SQLException ex) {
             System.getLogger(Database.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }      
     }    
-    
+        
     public ResultSet ExecuteQuery(String sql){      
         try {
             Statement cmd = conn.createStatement();
@@ -33,12 +33,20 @@ public class Database {
         }       
     }
     
+    public void ExecuteUpdate(String sql){      
+        try {
+            Statement cmd = conn.createStatement();
+            cmd.executeUpdate(sql);
+        } catch (SQLException ex) {
+            System.getLogger(Database.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);            
+        }       
+    }
+    
     public void Close(){
         try{
             conn.close();
         } catch (SQLException ex) {
             System.getLogger(Database.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
-    }
-    
+    }    
 }
