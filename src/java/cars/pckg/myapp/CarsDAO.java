@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.*;
 import model.pckg.myapp.Car;
 
 /**
@@ -21,7 +22,10 @@ public class CarsDAO {
         try {
             List<Car> carList = new ArrayList<>();
             Database db = new Database();
-            ResultSet rs = db.ExecuteQuery("SELECT * FROM Cars;");
+            Connection conn = db.getConnection();
+            PreparedStatement pstat = conn.prepareStatement("SELECT * FROM Cars;");
+
+            ResultSet rs = pstat.executeQuery();
 
             while (rs.next()) {
                 Car car = new Car();
@@ -40,13 +44,85 @@ public class CarsDAO {
         }
     }
 
+    public Car getCarById(int carId) {
+        try {
+            Database db = new Database();
+            Connection conn = db.getConnection();
+            PreparedStatement pstat = conn.prepareStatement("SELECT * FROM Cars WHERE carId = ?;");
+            pstat.setInt(1, carId);
+
+            ResultSet rs = pstat.executeQuery();
+
+            while (rs.next()) {
+                Car car = new Car();
+                car.setId(rs.getInt("carId"));
+                car.setBrand(rs.getString("Brand"));
+                car.setModel(rs.getString("Model"));
+                car.setCC(rs.getString("cubicCapacity"));
+                db.Close();
+                return car;
+            }
+
+            return null;
+        } catch (SQLException ex) {
+            System.getLogger(CarsDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            return null;
+        }
+    }
+
     public void insertCar(Car car) {
         Database db = new Database();
+        Connection conn = db.getConnection();
 
-        String sql = "INSERT INTO Cars (brand, model, type, fuelType, transmission, cubicCapacity, created)"
-                   + "VALUES ('" + car.getBrand() + "', '" + car.getModel() + "', 7, 2, 2, '" + car.getCC() + "', LOCALTIME());";
+        PreparedStatement pstat;
 
-        db.ExecuteUpdate(sql);
-        db.Close();
+        try {
+            pstat = conn.prepareStatement("INSERT INTO Cars (brand, model, type, fuelType, transmission, cubicCapacity, created) VALUES (?, ?, ?, ?, ?, ?, LOCALTIME());");
+            pstat.setString(1, car.getBrand());
+            pstat.setString(2, car.getModel());
+            pstat.setInt(3, 7);
+            pstat.setInt(4, 2);
+            pstat.setInt(5, 2);
+            pstat.setString(6, car.getCC());
+            pstat.executeUpdate();
+            db.Close();
+        } catch (SQLException ex) {
+            System.getLogger(CarsDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }
+
+    public void updateCar(Car car) {
+        Database db = new Database();
+        Connection conn = db.getConnection();
+
+        PreparedStatement pstat;
+
+        try {
+            pstat = conn.prepareStatement("UPDATE Cars SET brand=?, model=?, cubicCapacity=? WHERE carId = ?;");
+            pstat.setString(1, car.getBrand());
+            pstat.setString(2, car.getModel());
+            pstat.setString(3, car.getCC());
+            pstat.setInt(4, car.getId());
+            pstat.executeUpdate();
+            db.Close();
+        } catch (SQLException ex) {
+            System.getLogger(CarsDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }
+
+    public void deleteCar(int carId) {
+        Database db = new Database();
+        Connection conn = db.getConnection();
+
+        PreparedStatement pstat;
+
+        try {
+            pstat = conn.prepareStatement("DELETE FROM Cars WHERE carId = ?;");
+            pstat.setInt(1, carId);
+            pstat.executeUpdate();
+            db.Close();
+        } catch (SQLException ex) {
+            System.getLogger(CarsDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }
 }
