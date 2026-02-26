@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
         String pwd = request.getParameter("txtPwd");
         
         //TO-DO preguntarle a la BD si existe el usuario
-        if(false){
+        if(true){
             User user = new User();
             user.setEmail(email);
             user.setName("Pedro");            
@@ -51,3 +51,4 @@ public class LoginServlet extends HttpServlet {
     }
 
 }
+
