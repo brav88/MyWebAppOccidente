@@ -4,6 +4,8 @@
   Author     : Personal
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="model.pckg.myapp.Catalog"%>
 <%@page import="model.pckg.myapp.Car"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -33,12 +35,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="CarsServlet">
+                            <a class="nav-link" href="#">
                                 Inventory
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="cars-form.jsp">
+                            <a class="nav-link" href="CatalogServlet?path=cars-form.jsp">
                                 Add New Car
                             </a>
                         </li>
@@ -61,6 +63,9 @@
         </nav>    
         <%
             Car car = (Car) request.getAttribute("car");
+            List<Catalog> carTypeList = (List<Catalog>) request.getAttribute("carTypeList");
+            List<Catalog> fuelTypeList = (List<Catalog>) request.getAttribute("fuelTypeList");
+            List<Catalog> transmissionList = (List<Catalog>) request.getAttribute("transmissionList");
         %>   
 
         <div class="container text-center" style="margin-top:5rem">
@@ -81,6 +86,33 @@
                                 <input type="text" class="form-control" name="txtModel" id="txtModel" placeholder="Corolla" value="<%= (car == null) ? "" : car.getModel()%>" >
                                 <label for="txtModel">Model</label>
                             </div>
+                            <div class="form-floating mb-3">
+                                <select class="form-select" name="selCarType" aria-label="Default select example">              
+                                    <% for (Catalog cat : carTypeList) {%>
+                                    <option value="<%=cat.getId()%>"
+                                            <%= (car == null) ? "" : (cat.getId() == car.getCarType()) ? "selected" : ""%>                                                                                     
+                                            ><%=cat.getDescription()%></option>                                    
+                                    <%}%> 
+                                </select>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select class="form-select" name="selFuelType" aria-label="Default select example">                                    
+                                    <% for (Catalog cat : fuelTypeList) {%>
+                                    <option value="<%=cat.getId()%>" 
+                                            <%= (car == null) ? "" : (cat.getId() == car.getFuelType()) ? "selected" : ""%>
+                                            ><%=cat.getDescription()%></option>                                    
+                                    <%}%>                        
+                                </select>
+                            </div>    
+                            <div class="form-floating mb-3">
+                                <select class="form-select" name="selTransmission" aria-label="Default select example">                                    
+                                    <% for (Catalog cat : transmissionList) {%>
+                                    <option value="<%=cat.getId()%>" 
+                                            <%= (car == null) ? "" : (cat.getId() == car.getTransmission()) ? "selected" : ""%>                                            
+                                            ><%=cat.getDescription()%></option>                                    
+                                    <%}%>                      
+                                </select>
+                            </div>    
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" name="txtCC" id="txtCC" placeholder="Corolla" value="<%= (car == null) ? "" : car.getCC()%>" >
                                 <label for="txtCC">CC</label>

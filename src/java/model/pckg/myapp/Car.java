@@ -10,7 +10,7 @@ package model.pckg.myapp;
  */
 public class Car {
 
-    private int id;
+    private int Id;
     private String Brand;
     private String Model;
     private int Type;
@@ -32,7 +32,7 @@ public class Car {
     }
 
     public int getId() {
-        return id;
+        return Id;
     }
 
     public String getBrand() {
@@ -43,23 +43,47 @@ public class Car {
         return Model;
     }
 
+    public int getCarType() {
+        return Type;
+    }
+
+    public int getFuelType() {
+        return FuelType;
+    }
+
+    public int getTransmission() {
+        return Transmission;
+    }
+
     public String getCC() {
         return CubicCapacity;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int _id) {
+        this.Id = _id;
     }
 
-    public void setBrand(String brand) {
-        this.Brand = brand;
+    public void setBrand(String _brand) {
+        this.Brand = _brand;
     }
 
-    public void setModel(String model) {
-        this.Model = model;
+    public void setModel(String _model) {
+        this.Model = _model;
     }
 
-    public void setCC(String cc) {
-        this.CubicCapacity = cc;
+    public void setCarType(int _carType) {
+        this.Type = _carType;
+    }
+
+    public void setFuelType(int _fuelType) {
+        this.FuelType = _fuelType;
+    }
+
+    public void setTransmission(int _transmission) {
+        this.Transmission = _transmission;
+    }
+
+    public void setCC(String _cc) {
+        this.CubicCapacity = _cc;
     }
 }

@@ -10,23 +10,47 @@ package model.pckg.myapp;
  */
 public class User {
 
-    String Name;
-    int Age;
-    String Career;
+    private int Id;
+    private String Name;
+    private String LastName;
+    private String Email;
+    private String Type;
+    private boolean Status;
 
-    public User(String _name, int _age, String _career) {
+    public User() {
+
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public String getType() {
+        return Type;
+    }
+
+    public void setId(int _id) {
+        this.Id = _id;
+    }
+
+    public void setName(String _name) {
         this.Name = _name;
-        this.Age = _age;
-        this.Career = _career;
     }
 
-    public String Wave() {
-        return this.Name + " you are " + this.Age + " years old, " 
-                         + "you are " +(Underage() ? "a minor " : "an adult") 
-                         + " and you are ready to start a mayor in " + this.Career;
+    public void setEmail(String _email) {
+        this.Email = _email;
     }
-    
-    private boolean Underage(){
-        return this.Age < 18;
-    }      
+
+    public void setType(String _type) {
+        this.Type = _type;
+    }
+
 }

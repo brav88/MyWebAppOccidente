@@ -4,6 +4,7 @@
     Author     : Personal
 --%>
 
+<%@page import="model.pckg.myapp.User"%>
 <%@page import="java.util.List"%>
 <%@page import="model.pckg.myapp.Car"%>
 <%@page import="database.pckg.myapp.Database"%>
@@ -24,10 +25,14 @@
         </style>
     </head>
     <body>
+        <%
+            User user = (User) session.getAttribute("User");
+            List<Car> carList = (List<Car>) request.getAttribute("carList");
+        %>  
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
             <div class="container-fluid">
                 <a class="navbar-brand fw-bold" href="CarsServlet">
-                    🚗 Price Auto Sales
+                    🚗 Price Auto Sales welcome <%=user.getName()%>
                 </a>
                 <button class="navbar-toggler" type="button" 
                         data-bs-toggle="collapse" 
@@ -42,12 +47,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="CarsServlet">
+                            <a class="nav-link" href="#">
                                 Inventory
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="cars-form.jsp">
+                            <a class="nav-link" href="CatalogServlet?path=cars-form.jsp">
                                 Add New Car
                             </a>
                         </li>
@@ -68,11 +73,6 @@
                 </div>
             </div>
         </nav>        
-
-        <%
-            List<Car> carList = (List<Car>) request.getAttribute("carList");
-        %>     
-
         <div class="container text-center" style="margin-top:5rem">
             <div class="row">               
                 <% for (Car car : carList) {%>
@@ -82,8 +82,8 @@
                         <div class="card-body">
                             <h5 class="card-title"><%=car.getBrand()%> <%=car.getModel()%> <%=car.getCC()%>cc</h5>
                             <p class="card-text"></p>
-                            <a href="CarsServlet?action=Edit&carId=<%=car.getId()%>" class="btn btn-primary">Edit</a>
-                            <a href="CarsServlet?action=Delete&carId=<%=car.getId()%>" class="btn btn-danger">Delete</a>
+                            <a href="CarsServlet?action=Edit&carId=<%=car.getId()%>" class="btn btn-primary">Edit</a>                            
+                            <a href="CarsServlet?action=Delete&carId=<%=car.getId()%>" class="btn btn-danger">Delete</a>                            
                         </div>
                     </div>
                 </div>

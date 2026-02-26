@@ -30,8 +30,11 @@ public class CarsDAO {
             while (rs.next()) {
                 Car car = new Car();
                 car.setId(rs.getInt("carId"));
-                car.setBrand(rs.getString("Brand"));
-                car.setModel(rs.getString("Model"));
+                car.setBrand(rs.getString("brand"));
+                car.setModel(rs.getString("model"));
+                car.setCarType(rs.getInt("type"));
+                car.setFuelType(rs.getInt("fuelType"));
+                car.setTransmission(rs.getInt("transmission"));
                 car.setCC(rs.getString("cubicCapacity"));
                 carList.add(car);
             }
@@ -56,8 +59,11 @@ public class CarsDAO {
             while (rs.next()) {
                 Car car = new Car();
                 car.setId(rs.getInt("carId"));
-                car.setBrand(rs.getString("Brand"));
-                car.setModel(rs.getString("Model"));
+                car.setBrand(rs.getString("brand"));
+                car.setModel(rs.getString("model"));
+                car.setCarType(rs.getInt("type"));
+                car.setFuelType(rs.getInt("fuelType"));
+                car.setTransmission(rs.getInt("transmission"));
                 car.setCC(rs.getString("cubicCapacity"));
                 db.Close();
                 return car;
@@ -80,9 +86,9 @@ public class CarsDAO {
             pstat = conn.prepareStatement("INSERT INTO Cars (brand, model, type, fuelType, transmission, cubicCapacity, created) VALUES (?, ?, ?, ?, ?, ?, LOCALTIME());");
             pstat.setString(1, car.getBrand());
             pstat.setString(2, car.getModel());
-            pstat.setInt(3, 7);
-            pstat.setInt(4, 2);
-            pstat.setInt(5, 2);
+            pstat.setInt(3, car.getCarType());
+            pstat.setInt(4, car.getFuelType());
+            pstat.setInt(5, car.getTransmission());
             pstat.setString(6, car.getCC());
             pstat.executeUpdate();
             db.Close();
@@ -98,11 +104,14 @@ public class CarsDAO {
         PreparedStatement pstat;
 
         try {
-            pstat = conn.prepareStatement("UPDATE Cars SET brand=?, model=?, cubicCapacity=? WHERE carId = ?;");
+            pstat = conn.prepareStatement("UPDATE Cars SET brand=?, model=?, type=?, fuelType=?, transmission=?, cubicCapacity=? WHERE carId = ?;");
             pstat.setString(1, car.getBrand());
             pstat.setString(2, car.getModel());
-            pstat.setString(3, car.getCC());
-            pstat.setInt(4, car.getId());
+            pstat.setInt(3, car.getCarType());
+            pstat.setInt(4, car.getFuelType());
+            pstat.setInt(5, car.getTransmission());
+            pstat.setString(6, car.getCC());
+            pstat.setInt(7, car.getId());
             pstat.executeUpdate();
             db.Close();
         } catch (SQLException ex) {
