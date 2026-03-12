@@ -9,7 +9,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import model.pckg.myapp.Car;
+import model.pckg.myapp.User;
 
 /**
  *
@@ -25,14 +27,16 @@ public class CarsServlet extends HttpServlet {
         if (action == null) {
             request.setAttribute("carList", dao.getAllCars());
             request.getRequestDispatcher("cars.jsp").forward(request, response);
+            return;
         }
         if (action.equals("Edit")) {
             request.setAttribute("car", dao.getCarById(Integer.parseInt(request.getParameter("carId"))));
             request.getRequestDispatcher("CatalogServlet?path=cars-form.jsp").forward(request, response);
+            return;
         }
         if (action.equals("Delete")) {
             dao.deleteCar(Integer.parseInt(request.getParameter("carId")));
-            response.sendRedirect("CarsServlet");
+            response.sendRedirect("CarsServlet");            
         }
 
     }
@@ -41,6 +45,9 @@ public class CarsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String carId = request.getParameter("txtCarId");
 
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("User");
+        
         Car car = new Car();
         car.setBrand(request.getParameter("txtBrand"));
         car.setModel(request.getParameter("txtModel"));
@@ -50,6 +57,7 @@ public class CarsServlet extends HttpServlet {
         car.setCC(request.getParameter("txtCC"));
 
         if (carId.equals("")) {
+            car.setUserId(user.getId());
             CarsDAO dao = new CarsDAO();
             dao.insertCar(car);
         } else {

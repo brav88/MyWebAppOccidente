@@ -66,7 +66,7 @@
                                 <li><a class="dropdown-item" href="">Sales</a></li>
                                 <li><a class="dropdown-item" href="">Customers</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item text-danger" href="">Logout</a></li>
+                                <li><a class="dropdown-item text-danger" href="LoginServlet">Logout</a></li>
                             </ul>
                         </li>
                     </ul>                   
@@ -82,8 +82,12 @@
                         <div class="card-body">
                             <h5 class="card-title"><%=car.getBrand()%> <%=car.getModel()%> <%=car.getCC()%>cc</h5>
                             <p class="card-text"></p>
+                            <% if (user.getId() == car.getUserId()) {%>
                             <a href="CarsServlet?action=Edit&carId=<%=car.getId()%>" class="btn btn-primary">Edit</a>                            
                             <a href="CarsServlet?action=Delete&carId=<%=car.getId()%>" class="btn btn-danger">Delete</a>                            
+                            <%} else {%>   
+                            <a href="" class="btn btn-info">See Details</a>                            
+                            <%} %>   
                         </div>
                     </div>
                 </div>

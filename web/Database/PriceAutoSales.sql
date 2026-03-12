@@ -11,15 +11,19 @@ CREATE TABLE Cars (
     fuelType int,
     transmission int,
     cubicCapacity varchar(50),
+    userId INT,
     created datetime,
     PRIMARY KEY (carId)
 );
 
-INSERT INTO Cars (brand, model, type, fuelType, transmission, cubicCapacity, created) VALUES ('Toyota', 'Land Cruiser Prado', 7, 2, 2, '4000cc', LOCALTIME());
+INSERT INTO Cars (brand, model, type, fuelType, transmission, cubicCapacity, userId, created) 
+VALUES ('Toyota', 'Land Cruiser', 7, 2, 2, '4000', 2, LOCALTIME());
 INSERT INTO Cars (brand, model, type, fuelType, transmission, cubicCapacity, created)
-VALUES ('Honda', 'Civic', 1, 1, 1, '1700cc', LOCALTIME());
+VALUES ('Honda', 'Civic', 1, 1, 1, '1700', LOCALTIME());
 INSERT INTO Cars (brand, model, type, fuelType, transmission, cubicCapacity, created)
-VALUES ('Suzuki', 'Vitara', 1, 1, 1, '1900cc', LOCALTIME());
+VALUES ('Suzuki', 'Vitara', 1, 1, 1, '1900', LOCALTIME());
+INSERT INTO Cars (brand, model, type, fuelType, transmission, cubicCapacity, created)
+VALUES ('Honda', 'Accord', null, 1, 1, '1900', LOCALTIME());
 
 UPDATE Cars SET brand='Toyota', model = 'Land Cruiser', cubicCapacity='4000'  WHERE carId = 1;
 DELETE FROM Cars WHERE carId = 5;
@@ -77,5 +81,24 @@ INSERT INTO CarType (description)
 VALUES ('Hatchback');
 INSERT INTO CarType (description)
 VALUES ('Station Wagon');
+INSERT INTO CarType (description)
+VALUES ('Minivan');
 
 SELECT * FROM CarType;
+
+CREATE TABLE Users (
+  id int NOT NULL AUTO_INCREMENT,
+  name varchar(50) DEFAULT NULL,
+  last_name varchar(50) DEFAULT NULL,
+  email varchar(50) DEFAULT NULL,
+  password varchar(50) DEFAULT NULL,
+  type varchar(50) DEFAULT NULL,
+  PRIMARY KEY (id)
+);
+
+INSERT INTO Users (name, last_name, email, password, type) 
+VALUES ('Braulio', 'Sandi', 'bsandim@castrocarazo.ac.cr', 'Admin$1234', 'root');
+INSERT INTO Users (name, last_name, email, password, type) 
+VALUES ('Jason', 'Taylor', 'jtaylor@castrocarazo.ac.cr', 'Admin$1234', 'sales');
+
+

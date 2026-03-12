@@ -5,7 +5,6 @@
 package auth.pckg.myapp;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,28 +20,25 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String email = request.getParameter("txtEmail");
-        String pwd = request.getParameter("txtPwd");
-        
-        //TO-DO preguntarle a la BD si existe el usuario
-        if(true){
-            User user = new User();
-            user.setEmail(email);
-            user.setName("Pedro");            
-            
-            HttpSession session = request.getSession();
-            session.setAttribute("User", user);
-            
-            response.sendRedirect("CarsServlet");
-        }
-        else{
-            response.sendRedirect("error.jsp");
-        }
+        HttpSession session = request.getSession();
+        session.invalidate();
+        response.sendRedirect("login.jsp");
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String email = request.getParameter("txtEmail");
+        String pwd = request.getParameter("txtPwd");
+        UserDAO dao = new UserDAO();
+        User user = dao.getAuthLogin(email, pwd);
 
+        if (user != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("User", user);
+            response.sendRedirect("CarsServlet");
+        } else {
+            response.sendRedirect("error.jsp");
+        }
     }
 
     @Override
@@ -51,4 +47,3 @@ public class LoginServlet extends HttpServlet {
     }
 
 }
-

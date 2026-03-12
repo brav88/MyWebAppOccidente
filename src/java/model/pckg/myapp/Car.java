@@ -17,6 +17,7 @@ public class Car {
     private int FuelType;
     private int Transmission;
     private String CubicCapacity;
+    private int UserId;
 
     public Car() {
 
@@ -59,6 +60,10 @@ public class Car {
         return CubicCapacity;
     }
 
+    public int getUserId() {
+        return UserId;
+    }
+
     public void setId(int _id) {
         this.Id = _id;
     }
@@ -85,5 +90,9 @@ public class Car {
 
     public void setCC(String _cc) {
         this.CubicCapacity = _cc;
+    }
+
+    public void setUserId(int _userid) {
+        this.UserId = _userid;
     }
 }

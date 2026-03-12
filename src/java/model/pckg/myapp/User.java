@@ -14,8 +14,7 @@ public class User {
     private String Name;
     private String LastName;
     private String Email;
-    private String Type;
-    private boolean Status;
+    private String Type;    
 
     public User() {
 
@@ -27,6 +26,10 @@ public class User {
 
     public String getName() {
         return Name;
+    }
+
+    public String getLastName() {
+        return LastName;
     }
 
     public String getEmail() {
@@ -44,6 +47,10 @@ public class User {
     public void setName(String _name) {
         this.Name = _name;
     }
+    
+      public void setLastName(String _lastname) {
+        this.LastName = _lastname;
+    }
 
     public void setEmail(String _email) {
         this.Email = _email;
@@ -52,5 +59,4 @@ public class User {
     public void setType(String _type) {
         this.Type = _type;
     }
-
 }

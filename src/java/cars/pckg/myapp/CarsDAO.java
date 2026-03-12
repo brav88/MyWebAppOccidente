@@ -36,6 +36,7 @@ public class CarsDAO {
                 car.setFuelType(rs.getInt("fuelType"));
                 car.setTransmission(rs.getInt("transmission"));
                 car.setCC(rs.getString("cubicCapacity"));
+                car.setUserId(rs.getInt("userId"));
                 carList.add(car);
             }
 
@@ -65,6 +66,7 @@ public class CarsDAO {
                 car.setFuelType(rs.getInt("fuelType"));
                 car.setTransmission(rs.getInt("transmission"));
                 car.setCC(rs.getString("cubicCapacity"));
+                car.setUserId(rs.getInt("userId"));
                 db.Close();
                 return car;
             }
@@ -83,13 +85,14 @@ public class CarsDAO {
         PreparedStatement pstat;
 
         try {
-            pstat = conn.prepareStatement("INSERT INTO Cars (brand, model, type, fuelType, transmission, cubicCapacity, created) VALUES (?, ?, ?, ?, ?, ?, LOCALTIME());");
+            pstat = conn.prepareStatement("INSERT INTO Cars (brand, model, type, fuelType, transmission, cubicCapacity, userId, created) VALUES (?,?,?,?,?,?,?, LOCALTIME());");
             pstat.setString(1, car.getBrand());
             pstat.setString(2, car.getModel());
             pstat.setInt(3, car.getCarType());
             pstat.setInt(4, car.getFuelType());
             pstat.setInt(5, car.getTransmission());
             pstat.setString(6, car.getCC());
+            pstat.setInt(7, car.getUserId());
             pstat.executeUpdate();
             db.Close();
         } catch (SQLException ex) {
